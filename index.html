@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>$PEPECOCK</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;600;700&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      width: 100%;
+      font-family: 'Inter', sans-serif;
+      color: #fff;
+    }
+
+    /* ── VIDEO BG (fixed behind everything) ── */
+    #bg-video {
+      position: fixed;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    #overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 20, 0, 0.52);
+      z-index: 1;
+    }
+
+    /* all page content above the fixed bg */
+    #page { position: relative; z-index: 2; }
+
+    /* ══════════════════════════════════════
+       HERO SECTION
+    ══════════════════════════════════════ */
+    #hero {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+      padding: 24px 20px 60px;
+    }
+
+    .ticker {
+      font-family: 'Bangers', cursive;
+      font-size: clamp(3.5rem, 10vw, 7rem);
+      color: #fff;
+      letter-spacing: 4px;
+      text-shadow:
+        0 0 20px #39ff14,
+        0 0 40px #39ff14,
+        3px 3px 0 #1a7a00;
+      line-height: 1;
+      text-align: center;
+    }
+    .ticker span { color: #39ff14; }
+
+    .tagline {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(57,255,20,0.4);
+      backdrop-filter: blur(6px);
+      color: #fff;
+      font-size: clamp(0.85rem, 2vw, 1.1rem);
+      font-weight: 600;
+      padding: 6px 20px;
+      border-radius: 999px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .btn-buy {
+      font-family: 'Bangers', cursive;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      letter-spacing: 3px;
+      color: #fff;
+      background: linear-gradient(135deg, #3ddc84 0%, #1a8c00 50%, #39ff14 100%);
+      border: none;
+      padding: 16px 60px;
+      border-radius: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      box-shadow: 0 0 0 0 rgba(57,255,20,0.7);
+      animation: pulse 1.6s infinite;
+      transition: transform 0.15s;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-buy::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.25), transparent);
+      pointer-events: none;
+    }
+    .btn-buy:hover  { transform: scale(1.07); }
+    .btn-buy:active { transform: scale(0.97); }
+
+    @keyframes pulse {
+      0%   { box-shadow: 0 0 0 0   rgba(57,255,20,0.8); }
+      70%  { box-shadow: 0 0 0 22px rgba(57,255,20,0); }
+      100% { box-shadow: 0 0 0 0   rgba(57,255,20,0); }
+    }
+
+    .ca-wrap {
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,0.95);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+      max-width: 580px;
+      width: 100%;
+    }
+    .ca-label {
+      background: #1a8c00;
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.78rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 0 14px;
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      min-height: 48px;
+    }
+    .ca-addr {
+      flex: 1;
+      padding: 12px 14px;
+      font-size: clamp(0.7rem, 2vw, 0.88rem);
+      color: #222;
+      font-family: 'Courier New', monospace;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      background: transparent;
+      border: none;
+      outline: none;
+      user-select: all;
+    }
+    .btn-copy {
+      background: #3ddc84;
+      color: #fff;
+      border: none;
+      padding: 0 20px;
+      min-height: 48px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      white-space: nowrap;
+    }
+    .btn-copy:hover  { background: #1a8c00; }
+    .btn-copy:active { transform: scale(0.96); }
+    .btn-copy.copied { background: #39ff14; color: #000; }
+
+    .socials {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .soc-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.95);
+      color: #1a8c00;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 10px 22px;
+      border-radius: 10px;
+      text-decoration: none;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+      transition: background 0.2s, color 0.2s, transform 0.15s;
+    }
+    .soc-btn:hover {
+      background: #3ddc84;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+    .soc-btn svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+    /* scroll hint arrow */
+    .scroll-hint {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      opacity: 0.6;
+      animation: bounce 2s infinite;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .scroll-hint svg { width: 28px; height: 28px; }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(8px); }
+    }
+
+    /* ══════════════════════════════════════
+       SECTION SHARED STYLES
+    ══════════════════════════════════════ */
+    .section {
+      width: 100%;
+      padding: 80px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 48px;
+    }
+
+    .section-inner {
+      max-width: 1000px;
+      width: 100%;
+    }
+
+    .section-title {
+      font-family: 'Bangers', cursive;
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      letter-spacing: 3px;
+      text-align: center;
+      color: #fff;
+      text-shadow:
+        0 0 16px #39ff14,
+        0 0 32px #39ff14,
+        2px 2px 0 #1a7a00;
+      margin-bottom: 8px;
+    }
+
+    .section-divider {
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, #39ff14, #1a8c00);
+      border-radius: 99px;
+      margin: 0 auto 40px;
+    }
+
+    /* ══════════════════════════════════════
+       ABOUT — STORY PANELS
+    ══════════════════════════════════════ */
+    #about { background: rgba(0, 10, 0, 0.55); }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 28px;
+    }
+
+    .story-card {
+      background: rgba(255,255,255,0.96);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s;
+    }
+    .story-card:hover { transform: translateY(-6px); }
+
+    .story-card img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      display: block;
+    }
+
+    .story-card-body {
+      padding: 20px 22px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .story-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px; height: 32px;
+      background: #1a8c00;
+      color: #fff;
+      font-family: 'Bangers', cursive;
+      font-size: 1.1rem;
+      border-radius: 50%;
+    }
+
+    .story-card-title {
+      font-family: 'Bangers', cursive;
+      font-size: 1.4rem;
+      color: #1a8c00;
+      letter-spacing: 1px;
+    }
+
+    .story-card-text {
+      font-size: 0.9rem;
+      color: #333;
+      line-height: 1.55;
+    }
+
+
+
+    /* ══════════════════════════════════════
+       MEMES GALLERY
+    ══════════════════════════════════════ */
+    .meme-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 560px) {
+      .meme-grid { grid-template-columns: 1fr; }
+    }
+
+    .meme-item {
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+      border: 1px solid rgba(57,255,20,0.15);
+      aspect-ratio: 1 / 1;
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+    }
+    .meme-item:hover {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 16px 48px rgba(57,255,20,0.2), 0 8px 32px rgba(0,0,0,0.5);
+      border-color: rgba(57,255,20,0.5);
+    }
+
+    .meme-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.35s;
+    }
+    .meme-item:hover img { transform: scale(1.06); }
+
+    .meme-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.25s;
+    }
+    .meme-item:hover .meme-overlay { background: rgba(0,0,0,0.35); }
+
+    .meme-zoom-icon {
+      opacity: 0;
+      transform: scale(0.7);
+      transition: opacity 0.25s, transform 0.25s;
+      background: rgba(57,255,20,0.9);
+      border-radius: 50%;
+      width: 52px; height: 52px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .meme-zoom-icon svg { width: 24px; height: 24px; color: #000; }
+    .meme-item:hover .meme-zoom-icon {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* ── LIGHTBOX ── */
+    #lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0,0,0,0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s, background 0.3s;
+    }
+    #lightbox.active {
+      opacity: 1;
+      pointer-events: all;
+      background: rgba(0,0,0,0.92);
+    }
+
+    #lightbox img {
+      max-width: 90vw;
+      max-height: 88vh;
+      border-radius: 16px;
+      box-shadow: 0 0 0 1px rgba(57,255,20,0.3), 0 0 60px rgba(57,255,20,0.15), 0 24px 80px rgba(0,0,0,0.7);
+      transform: scale(0.88);
+      opacity: 0;
+      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), opacity 0.25s ease;
+      display: block;
+    }
+    #lightbox.active img { transform: scale(1); opacity: 1; }
+
+    #lightbox-close {
+      position: absolute;
+      top: 20px; right: 24px;
+      background: rgba(57,255,20,0.15);
+      border: 1px solid rgba(57,255,20,0.4);
+      color: #39ff14;
+      border-radius: 50%;
+      width: 44px; height: 44px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 1.4rem;
+      line-height: 1;
+      transition: background 0.2s, transform 0.15s;
+    }
+    #lightbox-close:hover {
+      background: rgba(57,255,20,0.35);
+      transform: scale(1.1) rotate(90deg);
+    }
+
+    #lightbox-prev, #lightbox-next {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      background: rgba(57,255,20,0.12);
+      border: 1px solid rgba(57,255,20,0.35);
+      color: #39ff14;
+      border-radius: 12px;
+      width: 48px; height: 56px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 1.5rem;
+      transition: background 0.2s, transform 0.15s;
+    }
+    #lightbox-prev { left: 16px; }
+    #lightbox-next { right: 16px; }
+    #lightbox-prev:hover, #lightbox-next:hover {
+      background: rgba(57,255,20,0.3);
+      transform: translateY(-50%) scale(1.08);
+    }
+
+    #lightbox-counter {
+      position: absolute;
+      bottom: 20px;
+      left: 50%; transform: translateX(-50%);
+      font-family: 'Bangers', cursive;
+      font-size: 1.1rem;
+      letter-spacing: 3px;
+      color: rgba(57,255,20,0.7);
+    }
+
+    /* ══════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════ */
+    footer {
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(57, 255, 20, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #39ff14, #3ddc84, #39ff14, transparent);
+    }
+
+    .footer-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 60px 20px 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 48px;
+    }
+
+    @media (max-width: 700px) {
+      .footer-inner {
+        grid-template-columns: 1fr;
+        gap: 36px;
+        text-align: center;
+      }
+      .footer-socials { justify-content: center; }
+    }
+
+    .footer-brand {}
+
+    .footer-logo {
+      font-family: 'Bangers', cursive;
+      font-size: 2.2rem;
+      letter-spacing: 3px;
+      color: #fff;
+      text-shadow: 0 0 16px #39ff14, 0 0 32px #39ff14, 2px 2px 0 #1a7a00;
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+    .footer-logo span { color: #39ff14; }
+
+    .footer-desc {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .footer-soc {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px; height: 38px;
+      background: rgba(57, 255, 20, 0.1);
+      border: 1px solid rgba(57, 255, 20, 0.3);
+      border-radius: 10px;
+      color: #39ff14;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s, border-color 0.2s;
+    }
+    .footer-soc:hover {
+      background: rgba(57, 255, 20, 0.25);
+      border-color: #39ff14;
+      transform: translateY(-3px);
+    }
+    .footer-soc svg { width: 18px; height: 18px; }
+
+    .footer-col-title {
+      font-family: 'Bangers', cursive;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      color: #39ff14;
+      text-shadow: 0 0 10px rgba(57,255,20,0.5);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer-links a {
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .footer-links a::before {
+      content: '›';
+      color: #39ff14;
+      font-size: 1rem;
+      line-height: 1;
+    }
+    .footer-links a:hover { color: #39ff14; }
+
+    .footer-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-stat {
+      background: rgba(57, 255, 20, 0.06);
+      border: 1px solid rgba(57, 255, 20, 0.15);
+      border-radius: 10px;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-stat-label {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.4);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .footer-stat-value {
+      font-family: 'Bangers', cursive;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      color: #39ff14;
+      text-shadow: 0 0 8px rgba(57,255,20,0.6);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-disclaimer {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.25);
+      text-align: center;
+      letter-spacing: 0.5px;
+      max-width: 600px;
+      line-height: 1.5;
+    }
+
+    .footer-copy {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.2);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .footer-made {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.18);
+    }
+    .footer-made span { color: rgba(57,255,20,0.5); }
+
+    /* ══════════════════════════════════════
+       TOP NAV
+    ══════════════════════════════════════ */
+    #top-nav {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 36px;
+      background: rgba(0, 8, 0, 0.65);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(57, 255, 20, 0.18);
+    }
+
+    #top-nav .ticker {
+      font-size: clamp(3.9rem, 8.4vw, 5.7rem);
+      letter-spacing: 3px;
+      text-shadow:
+        0 0 20px #39ff14,
+        0 0 40px #39ff14,
+        3px 3px 0 #1a7a00;
+      line-height: 1;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #fff;
+      text-decoration: none;
+      font-family: 'Bangers', cursive;
+      font-weight: 400;
+      font-size: clamp(1.4rem, 2.5vw, 2.1rem);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 10px 26px;
+      border-radius: 10px;
+      background: rgba(57, 255, 20, 0.08);
+      border: 1px solid rgba(57, 255, 20, 0.28);
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    }
+    .nav-link:hover {
+      background: rgba(57, 255, 20, 0.22);
+      border-color: #39ff14;
+      transform: translateY(-2px);
+    }
+    .nav-link svg { width: clamp(18px, 2.2vw, 26px); height: clamp(18px, 2.2vw, 26px); flex-shrink: 0; }
+
+    @media (max-width: 600px) {
+      #top-nav { padding: 10px 16px; }
+      .nav-links { gap: 8px; }
+      .nav-link { padding: 7px 14px; }
+    }
+
+    #hero { padding-top: 160px; }
+  </style>
+</head>
+<body>
+
+  <!-- BG VIDEO -->
+  <video id="bg-video" autoplay muted loop playsinline>
+    <source src="bg.mp4" type="video/mp4" />
+  </video>
+  <div id="overlay"></div>
+
+  <div id="page">
+
+    <!-- ══ TOP NAV ══ -->
+    <nav id="top-nav">
+      <div class="ticker">$<span>PEPE</span>COCK</div>
+      <div class="nav-links">
+        <a class="nav-link" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c-3 4-3 14 0 18M12 3c3 4 3 14 0 18"/></svg>
+          DEX
+        </a>
+        <a class="nav-link" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.259 5.63L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          X
+        </a>
+        <a class="nav-link" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          TG
+        </a>
+      </div>
+    </nav>
+
+    <!-- ══ HERO ══ -->
+    <section id="hero">
+<!--
+      <div class="tagline">🦚 THE FEATHERED FROG 🐸</div>
+    -->
+      <a class="btn-buy" href="#" target="_blank" rel="noopener">
+        🚀 BUY $PEPECOCK
+      </a>
+
+      <div class="ca-wrap">
+        <div class="ca-label">CA</div>
+        <input class="ca-addr" id="ca-input" type="text"
+          value="PASTE_YOUR_CONTRACT_ADDRESS_HERE" readonly />
+        <button class="btn-copy" id="btn-copy" onclick="copyCA()">Copy</button>
+      </div>
+<!--
+      <div class="socials">
+        <a class="soc-btn" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M3 3h18v4H3V3zm0 7h12v4H3v-4zm0 7h8v4H3v-4z" fill="currentColor"/></svg>
+          DexScreener
+        </a>
+        <a class="soc-btn" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          Telegram
+        </a>
+        <a class="soc-btn" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.259 5.63L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          X / Twitter
+        </a>
+      </div>
+    -->
+      <div class="scroll-hint">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 5v14M5 12l7 7 7-7"/>
+        </svg>
+        scroll
+      </div>
+    </section>
+
+    <!-- ══ ABOUT ══ -->
+    <section id="about" class="section">
+      <div class="section-inner">
+        <div class="section-title">🦚 Origin Story 🐸</div>
+        <div class="section-divider"></div>
+
+        <div class="story-grid">
+
+          <div class="story-card">
+                        <img src="3.png" alt="PEPECOCK is born" loading="lazy" />
+            <div class="story-card-body">
+              <span class="story-number">1</span>
+              <div class="story-card-title">The Fateful Meeting</div>
+              <div class="story-card-text">
+                Deep in the crypto jungle, a lonely Pepe wandered the blockchain wasteland.
+                Then one day, a dazzling Peacock appeared — feathers shimmering with the
+                colours of a hundred altcoins. Their eyes met. The charts pumped.
+              </div>
+            </div>
+          </div>
+
+          <div class="story-card">
+                                    <img src="2.png" alt="Pepe and Peacock fall in love" loading="lazy" />
+            <div class="story-card-body">
+              <span class="story-number">2</span>
+              <div class="story-card-title">Love on the Moon</div>
+              <div class="story-card-text">
+                Pepe and the Peacock fell deeply, irrevocably in love. She spread her
+                magnificent tail; he dropped the rarest of memes. Together they danced
+                across the blockchain, defying gravity and reason.
+              </div>
+            </div>
+          </div>
+
+          <div class="story-card">
+                                    <img src="1.jpg" alt="Pepe meets Peacock" loading="lazy" />
+            <div class="story-card-body">
+              <span class="story-number">3</span>
+              <div class="story-card-title">$PEPECOCK Is Born!</div>
+              <div class="story-card-text">
+                From their legendary union emerged <strong>$PEPECOCK</strong> — half frog,
+                half peacock, all meme. The most glorious creature the crypto world had
+                ever seen. The community went feral. The rest is history.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ MEMES ══ -->
+    <section id="memes" class="section">
+      <div class="section-inner">
+        <div class="section-title">🐸 Meme Gallery 🦚</div>
+        <div class="section-divider"></div>
+
+        <div class="meme-grid">
+          <div class="meme-item" onclick="openLightbox(0)">
+            <img src="meme1.png" alt="PEPECOCK meme 1" loading="lazy" />
+            <div class="meme-overlay">
+              <div class="meme-zoom-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="meme-item" onclick="openLightbox(1)">
+            <img src="meme2.png" alt="PEPECOCK meme 2" loading="lazy" />
+            <div class="meme-overlay">
+              <div class="meme-zoom-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="meme-item" onclick="openLightbox(2)">
+            <img src="meme3.png" alt="PEPECOCK meme 3" loading="lazy" />
+            <div class="meme-overlay">
+              <div class="meme-zoom-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="meme-item" onclick="openLightbox(3)">
+            <img src="meme4.png" alt="PEPECOCK meme 4" loading="lazy" />
+            <div class="meme-overlay">
+              <div class="meme-zoom-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIGHTBOX -->
+    <div id="lightbox" onclick="handleLightboxClick(event)">
+      <button id="lightbox-close" onclick="closeLightbox()">✕</button>
+      <button id="lightbox-prev" onclick="shiftLightbox(-1); event.stopPropagation()">‹</button>
+      <img id="lightbox-img" src="" alt="" />
+      <button id="lightbox-next" onclick="shiftLightbox(1); event.stopPropagation()">›</button>
+      <div id="lightbox-counter"></div>
+    </div>
+
+    <footer>
+      <div class="footer-inner">
+
+        <!-- Brand -->
+        <div class="footer-brand">
+          <div class="footer-logo">$<span>PEPE</span>COCK</div>
+          <div class="footer-desc">
+            The most glorious meme creature to ever grace the blockchain.
+            Half frog. Half peacock. All moon.
+          </div>
+          <div class="footer-socials">
+            <a class="footer-soc" href="#" target="_blank" rel="noopener" title="DexScreener">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M3 3h18v4H3V3zm0 7h12v4H3v-4zm0 7h8v4H3v-4z" fill="currentColor"/></svg>
+            </a>
+            <a class="footer-soc" href="#" target="_blank" rel="noopener" title="Telegram">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+            </a>
+            <a class="footer-soc" href="#" target="_blank" rel="noopener" title="X / Twitter">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.259 5.63L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <div class="footer-col-title">Navigation</div>
+          <ul class="footer-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">Origin Story</a></li>
+            <li><a href="#memes">Meme Gallery</a></li>
+            <li><a href="#" target="_blank" rel="noopener">DexScreener</a></li>
+            <li><a href="#" target="_blank" rel="noopener">Telegram</a></li>
+            <li><a href="#" target="_blank" rel="noopener">X / Twitter</a></li>
+          </ul>
+        </div>
+
+        <!-- Token Info -->
+        <div>
+          <div class="footer-col-title">Token Info</div>
+          <div class="footer-stats">
+            <div class="footer-stat">
+              <span class="footer-stat-label">Network</span>
+              <span class="footer-stat-value">Solana</span>
+            </div>
+            <div class="footer-stat">
+              <span class="footer-stat-label">Symbol</span>
+              <span class="footer-stat-value">$PEPECOCK</span>
+            </div>
+            <div class="footer-stat">
+              <span class="footer-stat-label">Tax</span>
+              <span class="footer-stat-value">0 / 0</span>
+            </div>
+            <div class="footer-stat">
+              <span class="footer-stat-label">LP</span>
+              <span class="footer-stat-value">Burned 🔥</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-disclaimer">
+          $PEPECOCK is a meme token with no intrinsic value or financial return expectation.
+          This is not financial advice. Always do your own research before investing in any cryptocurrency.
+        </div>
+        <div class="footer-copy">© 2026 $PEPECOCK &nbsp;·&nbsp; All rights reserved</div>
+        <div class="footer-made">Built for the flock 🦚🐸</div>
+      </div>
+    </footer>
+
+  </div><!-- #page -->
+
+  <script>
+    function copyCA() {
+      const input = document.getElementById('ca-input');
+      const btn   = document.getElementById('btn-copy');
+      const text  = input.value;
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+      }).catch(() => {
+        input.select();
+        document.execCommand('copy');
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+      });
+    }
+
+    /* ── LIGHTBOX ── */
+    const memeImages = ['meme1.png', 'meme2.png', 'meme3.png', 'meme4.png'];
+    let currentIndex = 0;
+
+    function openLightbox(index) {
+      currentIndex = index;
+      const lb = document.getElementById('lightbox');
+      updateLightboxImage();
+      lb.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function shiftLightbox(dir) {
+      currentIndex = (currentIndex + dir + memeImages.length) % memeImages.length;
+      updateLightboxImage();
+    }
+
+    function updateLightboxImage() {
+      const img = document.getElementById('lightbox-img');
+      const counter = document.getElementById('lightbox-counter');
+      img.style.opacity = '0';
+      img.style.transform = 'scale(0.88)';
+      setTimeout(() => {
+        img.src = memeImages[currentIndex];
+        img.alt = 'PEPECOCK meme ' + (currentIndex + 1);
+        img.style.opacity = '1';
+        img.style.transform = 'scale(1)';
+      }, 120);
+      counter.textContent = (currentIndex + 1) + ' / ' + memeImages.length;
+    }
+
+    function handleLightboxClick(e) {
+      if (e.target === document.getElementById('lightbox')) closeLightbox();
+    }
+
+    document.addEventListener('keydown', (e) => {
+      const lb = document.getElementById('lightbox');
+      if (!lb.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft')  shiftLightbox(-1);
+      if (e.key === 'ArrowRight') shiftLightbox(1);
+    });
+
+    /* touch swipe support */
+    let touchStartX = 0;
+    document.getElementById('lightbox').addEventListener('touchstart', e => {
+      touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+    document.getElementById('lightbox').addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 50) shiftLightbox(dx < 0 ? 1 : -1);
+    });
+  </script>
+</body>
+</html>
